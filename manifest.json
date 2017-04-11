@@ -1,0 +1,21 @@
+{
+	"name": "Syringe",
+	"version": "0.0.0",
+	"description": "Search and inject packages from npm.",
+	"homepage_url": "https://github.com/lukechilds/syringe",
+	"manifest_version": 2,
+	"browser_action": {
+		"default_popup": "src/popup.html"
+	},
+	"content_scripts": [
+		{
+			"run_at": "document_start",
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"src/content.js"
+			]
+		}
+	]
+}
