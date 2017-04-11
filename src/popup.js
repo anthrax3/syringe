@@ -7,6 +7,11 @@ const searchIndexes = {
 };
 
 search.addEventListener('input', e => {
+  if(search.value === '') {
+    results.innerHTML = '';
+    return;
+  }
+
   searchIndexes.current++;
   const searchIndex = searchIndexes.current;
 
