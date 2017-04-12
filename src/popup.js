@@ -36,5 +36,8 @@ search.addEventListener('keypress', e => {
     search.value = '';
     results.innerHTML = '';
     selected.innerHTML = packages.join(', ');
+    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+      chrome.tabs.sendMessage(tabs[0].id, { action: 'inject', packages }, console.log);
+    });
   }
 })
