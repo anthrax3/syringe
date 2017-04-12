@@ -1,6 +1,6 @@
 {
 	"name": "Syringe",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Search and inject packages from npm.",
 	"homepage_url": "https://github.com/lukechilds/syringe",
 	"manifest_version": 2,
