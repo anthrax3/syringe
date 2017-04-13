@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PackageSearch from './PackageSearch'
+import PackageSearch from './PackageSearch';
 
 class App extends Component {
   render() {

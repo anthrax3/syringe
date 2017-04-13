@@ -26,7 +26,7 @@ class PackageSearch extends Component {
   }
 
   changeHandler = (e, value) => {
-    this.setState({ value, loading: true })
+    this.setState({ value, loading: true });
     fetch(`https://ac.cnstrc.com/autocomplete/${value}?autocomplete_key=CD06z4gVeqSXRiDL2ZNK`)
       .then(res => res.json())
       .then(res => {
