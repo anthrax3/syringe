@@ -20,7 +20,8 @@ class PackageSearch extends Component {
       isLoading: true
     });
 
-    const thisRequest = this.latestRequest = fetch(`https://ac.cnstrc.com/autocomplete/${value}?autocomplete_key=CD06z4gVeqSXRiDL2ZNK`)
+    const url = `https://ac.cnstrc.com/autocomplete/${value}?autocomplete_key=CD06z4gVeqSXRiDL2ZNK`;
+    const thisRequest = this.latestRequest = fetch(url)
       .then(res => res.json())
       .then(res => {
         if(thisRequest !== this.latestRequest) {
