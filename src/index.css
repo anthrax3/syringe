@@ -15,6 +15,6 @@ h1 {
   color: #111;
 }
 
-.highlighted {
+.react-autosuggest__suggestion--highlighted {
   font-weight: bold;
 }

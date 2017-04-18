@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Autocomplete from 'react-autocomplete';
+import Autosuggest from 'react-autosuggest';
 
 class PackageSearch extends Component {
   constructor(props) {
@@ -7,55 +7,87 @@ class PackageSearch extends Component {
 
     this.state = {
       value: '',
-      packages: [],
-      loading: false
+      suggestions: [],
+      isLoading: false
     };
+
+    this.latestRequest = null;
   }
 
-  selectHandler = value => {
-    this.setState({ value, packages: [] });
-    if(typeof this.props.onSelect === 'function') {
-      this.props.onSelect(value);
-    }
-  }
+  onSuggestionsFetchRequested = ({ value }) => {
 
-  keyPressHandler = e => {
-    if(e.key === 'Enter') {
-      this.selectHandler(this.state.value);
-    }
-  }
+    this.setState({
+      isLoading: true
+    });
 
-  changeHandler = (e, value) => {
-    this.setState({ value, loading: true });
-    fetch(`https://ac.cnstrc.com/autocomplete/${value}?autocomplete_key=CD06z4gVeqSXRiDL2ZNK`)
+    const thisRequest = this.latestRequest = fetch(`https://ac.cnstrc.com/autocomplete/${value}?autocomplete_key=CD06z4gVeqSXRiDL2ZNK`)
       .then(res => res.json())
       .then(res => {
-        const packages = res.sections.packages;
-        if(packages.length > 0) {
-          this.setState({ packages, loading: false });
+        if(thisRequest !== this.latestRequest) {
+          return;
         }
+        const suggestions = res.sections.packages.length > 0
+          ? res.sections.packages
+          : [];
+        this.setState({
+          suggestions,
+          isLoading: false
+        });
       })
       .catch(err => this.setState({ loading: false }));
-  }
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+
+  getSuggestionValue = suggestion => suggestion.value;
+
+  renderSuggestion = suggestion => (
+    <div className="Package">
+      <div className="Name">{suggestion.value}</div>
+      <div className="Description">{suggestion.data.description}</div>
+    </div>
+  );
+
+  onChange = (e, { newValue }) => {
+    this.setState({
+      value: newValue
+    });
+  };
+
+  onKeyPress = e => {
+    if(e.key === 'Enter') {
+      if(typeof this.props.onSubmit === 'function') {
+        this.props.onSubmit(this.state.value);
+      }
+      this.setState({
+        value: ''
+      });
+    }
+  };
 
   render() {
+    const { value, suggestions } = this.state;
+    const inputProps = {
+      value,
+      onChange: this.onChange,
+      onKeyPress: this.onKeyPress
+    };
+
     return (
-      <Autocomplete
-          inputProps={{onKeyPress: this.keyPressHandler}}
-          ref="autocomplete"
-          value={this.state.value}
-          items={this.state.packages}
-          getItemValue={(item) => item.value}
-          onSelect={this.selectHandler}
-          onChange={this.changeHandler}
-          renderItem={(item, isHighlighted) => (
-            <div className={'Package' + (isHighlighted && ' highlighted')}>
-              <div className="Name">{item.value}</div>
-              <div className="Description">{item.data.description}</div>
-            </div>
-          )}
-        />
-    )
+      <div className="PackageSearch">
+        <Autosuggest
+          inputProps={inputProps}
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={this.renderSuggestion} />
+      </div>
+    );
   }
 }
 
