@@ -5,7 +5,7 @@
 	"homepage_url": "https://github.com/lukechilds/syringe",
 	"manifest_version": 2,
 	"browser_action": {
-		"default_popup": "src/popup.html"
+		"default_popup": "build/index.html"
 	},
 	"content_scripts": [
 		{
