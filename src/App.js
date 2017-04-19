@@ -21,7 +21,11 @@ class App extends Component {
       <div className="App">
         <h1>Syringe</h1>
         <PackageSearch onSubmit={this.handlePackageSelect} />
-        <div className="selected"></div>
+        <div className="selected">
+          {this.state.packages.map(pkg => (
+            <div key={pkg}>{pkg}</div>
+          ))}
+        </div>
       </div>
     );
   }
