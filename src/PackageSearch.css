@@ -3,6 +3,19 @@
   box-sizing: border-box;
 }
 
-.PackageSearch .react-autosuggest__suggestion--highlighted {
+.PackageSearch .react-autosuggest__suggestions-list {
+  margin: 0;
+  padding: 0;
+}
+
+.PackageSearch .Suggestion {
+  padding: 0.2em;
+}
+
+.PackageSearch .Name {
   font-weight: bold;
+}
+
+.PackageSearch .react-autosuggest__suggestion--highlighted {
+  background: #eee;
 }
