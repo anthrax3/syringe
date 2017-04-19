@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PackageSearch from './PackageSearch';
 import Package from './Package';
+import inject from '../lib/inject';
 import './App.css';
 
 class App extends Component {
@@ -16,14 +17,18 @@ class App extends Component {
     if(pkg === '' || this.state.packages.includes(pkg)) {
       return;
     }
+    const packages = [...this.state.packages, pkg];
+    inject(packages);
     this.setState({
-      packages: [...this.state.packages, pkg]
+      packages
     });
   };
 
   removePackage = pkg => {
+    const packages = this.state.packages.filter(p => p !== pkg);
+    inject(packages);
     this.setState({
-      packages: this.state.packages.filter(p => p !== pkg)
+      packages
     });
   };
 
