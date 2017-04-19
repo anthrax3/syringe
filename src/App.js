@@ -11,6 +11,9 @@ class App extends Component {
   }
 
   addPackage = pkg => {
+    if(pkg === '' || this.state.packages.includes(pkg)) {
+      return;
+    }
     this.setState({
       packages: [...this.state.packages, pkg]
     });
