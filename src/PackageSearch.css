@@ -1,3 +1,8 @@
+.PackageSearch .react-autosuggest__input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .PackageSearch .react-autosuggest__suggestion--highlighted {
   font-weight: bold;
 }
