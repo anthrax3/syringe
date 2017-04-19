@@ -48,7 +48,7 @@ class PackageSearch extends Component {
   getSuggestionValue = suggestion => suggestion.value;
 
   renderSuggestion = suggestion => (
-    <div className="Package">
+    <div className="Suggestion">
       <div className="Name">{suggestion.value}</div>
       <div className="Description">{suggestion.data.description}</div>
     </div>
