@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PackageSearch from './PackageSearch';
+import Package from './Package';
 
 class App extends Component {
   constructor(props) {
@@ -31,12 +32,9 @@ class App extends Component {
         <h1>Syringe</h1>
         <PackageSearch onSubmit={this.addPackage} />
         <div className="selected">
-          {this.state.packages.map(pkg => (
-            <div key={pkg}>
-              <span onClick={this.removePackage.bind(null, pkg)}>✕</span>
-              {pkg}
-            </div>
-          ))}
+          {this.state.packages.map(pkg =>
+            <Package key={pkg} pkg={pkg} onCrossClick={this.removePackage} />
+          )}
         </div>
       </div>
     );
