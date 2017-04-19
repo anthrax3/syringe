@@ -21,7 +21,6 @@ class App extends Component {
       <div className="App">
         <h1>Syringe</h1>
         <PackageSearch onSubmit={this.handlePackageSelect} />
-        <div className="results"></div>
         <div className="selected"></div>
       </div>
     );
