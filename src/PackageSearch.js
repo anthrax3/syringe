@@ -74,6 +74,7 @@ class PackageSearch extends Component {
     const { value, suggestions } = this.state;
     const inputProps = {
       value,
+      placeholder: 'Search npm',
       onChange: this.onChange,
       onKeyPress: this.onKeyPress
     };
