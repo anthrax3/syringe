@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PackageSearch from './PackageSearch';
 import Package from './Package';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
