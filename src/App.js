@@ -10,7 +10,7 @@ class App extends Component {
     };
   }
 
-  handlePackageSelect = pkg => {
+  addPackage = pkg => {
     this.setState({
       packages: [...this.state.packages, pkg]
     });
@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Syringe</h1>
-        <PackageSearch onSubmit={this.handlePackageSelect} />
+        <PackageSearch onSubmit={this.addPackage} />
         <div className="selected">
           {this.state.packages.map(pkg => (
             <div key={pkg}>{pkg}</div>
