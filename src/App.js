@@ -16,6 +16,12 @@ class App extends Component {
     });
   };
 
+  removePackage = pkg => {
+    this.setState({
+      packages: this.state.packages.filter(p => p !== pkg)
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -23,7 +29,10 @@ class App extends Component {
         <PackageSearch onSubmit={this.addPackage} />
         <div className="selected">
           {this.state.packages.map(pkg => (
-            <div key={pkg}>{pkg}</div>
+            <div key={pkg}>
+              <span onClick={this.removePackage.bind(null, pkg)}>✕</span>
+              {pkg}
+            </div>
           ))}
         </div>
       </div>
