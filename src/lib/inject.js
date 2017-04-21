@@ -5,9 +5,29 @@ const inject = packages => {
   if(!isChromeExtension) {
     return;
   }
-  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-    chrome.tabs.sendMessage(tabs[0].id, { action: 'inject', packages }, console.log);
-  });
+
+  const dependencies = packages.reduce((deps, pkg) => {
+    deps[pkg] = 'latest';
+    return deps
+  }, {});
+
+  fetch('https://wzrd.in/multi', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ dependencies })
+  })
+    .then(res => res.json())
+    .then(res => {
+      const bundle = Object.keys(res).reduce((bundle, pkg) => bundle + res[pkg].bundle, '');
+      const code = `(() => {
+        const s = document.createElement('script');
+        s.innerHTML = '(' + (() => { ${bundle} }).toString() + ')()';
+        document.body.appendChild(s);
+      })();`;
+      chrome.tabs.executeScript({ code });
+    });
 };
 
 export default inject;
