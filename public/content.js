@@ -25,7 +25,7 @@ const injectPackages = (packages, cb) => {
       const bundle = Object.keys(res).reduce((bundle, pkg) => bundle + res[pkg].bundle, '');
       const script = document.createElement('script');
       script.id = scriptId;
-      script.innerHTML = `syringe = ${JSON.stringify(packages)};`;
+      script.dataset.packages = JSON.stringify(packages);
       script.innerHTML = bundle;
       document.body.appendChild(script);
       cb(true);
