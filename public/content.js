@@ -34,6 +34,15 @@ const injectPackages = (packages, cb) => {
 }
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+
+  if(msg.action === 'getInjectedPackages') {
+    const script = document.getElementById(scriptId);
+    if(script !== null && script.dataset.packages !== undefined) {
+        return sendResponse(JSON.parse(script.dataset.packages));
+    }
+    return sendResponse(false);
+  }
+
   if(msg.action === 'inject') {
     injectPackages(msg.packages, sendResponse);
   }

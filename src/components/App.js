@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PackageSearch from './PackageSearch';
 import Package from './Package';
 import inject from '../lib/inject';
+import getInjectedPackages from '../lib/getInjectedPackages';
 import './App.css';
 
 class App extends Component {
@@ -11,6 +12,14 @@ class App extends Component {
     this.state = {
       packages: []
     };
+  }
+
+  componentDidMount() {
+    getInjectedPackages().then(packages => {
+      packages && this.setState({
+        packages
+      });
+    });
   }
 
   addPackage = pkg => {
